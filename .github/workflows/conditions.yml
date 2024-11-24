@@ -36,15 +36,17 @@ jobs:
 
       - name: Print JSON
         env:
-          VALMAP: ${{ fromJSON(needs.outputter.outputs.val-map) }}
-        run: echo "${{ fromJSON(env.VALMAP.val-one) }}, ${{ fromJSON(env.VALMAP.val-two) }}"
+          VALMAP: ${{ needs.outputter.outputs.val-map }}
+        run: echo "${{ fromJSON(fromJSON(env.VALMAP).val-one) }}, ${{ fromJSON(fromJSON(env.VALMAP).val-two) }}"
 
       - name: Conditional print less 10
         env:
-          VALMAP: ${{ fromJSON(needs.outputter.outputs.val-map) }}
-        if: fromJSON(env.VALMAP.val-one) < 10 && fromJSON(env.VALMAP.val-two) < 10
+          VALMAP: ${{ needs.outputter.outputs.val-map }}
+        if: fromJSON(fromJSON(env.VALMAP).val-one) < 10 && fromJSON(fromJSON(env.VALMAP).val-two) < 10
         run: echo "Conditional print less 10"
 
       - name: Conditional print greater 10
-        if: fromJSON(env.VALMAP.val-one) > 10 && fromJSON(env.VALMAP.val-two) > 10
+        env:
+          VALMAP: ${{ needs.outputter.outputs.val-map }}
+        if: fromJSON(fromJSON(env.VALMAP).val-one) > 10 && fromJSON(fromJSON(env.VALMAP).val-two) > 10
         run: echo "Conditional print greater 10"
