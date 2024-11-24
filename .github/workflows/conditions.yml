@@ -19,6 +19,9 @@ jobs:
     needs: outputter
 
     steps:
+      - name: Print prev job output
+        run: echo ${{ needs.outputter.outputs.val-map }}
+
       - env:
           VALONE: ${{ fromJSON(needs.outputter.outputs.val-map).val-one }}
           VALTWO: ${{ fromJSON(needs.outputter.outputs.val-map).val-two }}
