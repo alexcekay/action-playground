@@ -12,7 +12,7 @@ jobs:
     steps:
       - id: step
         run: |
-          echo val-map=$(jq -n --arg val-one "3.0" --arg val-two "2.0" '$ARGS.named')
+          echo "val-map=$(jq -n --arg val-one "3.0" --arg val-two "2.0" '$ARGS.named')" >> "$GITHUB_OUTPUT"
   
   print:
     runs-on: ubuntu-latest
