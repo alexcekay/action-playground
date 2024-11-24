@@ -7,11 +7,14 @@ jobs:
   outputter:
     runs-on: ubuntu-latest
     outputs:
-      val: ${{ steps.step.outputs.val }}
+      val-one: ${{ steps.step.outputs.val-one }}
+      val-two: ${{ steps.step.outputs.val-two }}
   
     steps:
       - id: step
-        run: echo "val=2.0" >> "$GITHUB_OUTPUT"
+        run: |
+          echo "val-one=2.0" >> "$GITHUB_OUTPUT"
+          echo "val-two=3.0" >> $GITHUB_OUTPUT
   
   print:
     runs-on: ubuntu-latest
@@ -19,9 +22,14 @@ jobs:
 
     steps:
       - env:
-          VAL: ${{ needs.outputter.outputs.val }}
-        run: echo "$VAL"
+          VALONE: ${{ needs.outputter.outputs.val-one }}
+          VALTWO: ${{ needs.outputter.outputs.val-two }}
+        run: echo "$VALONE, $VALTWO"
 
-      - name: Conditional print
-        if: fromJSON(needs.outputter.outputs.val) > 10
-        run: echo "Conditioanl print"
+      - name: Conditional print less 10
+        if: fromJSON(needs.outputter.outputs.val-one) < 10 && fromJSON(needs.outputter.outputs.val-two) < 10
+        run: echo "Conditional print less 10"
+
+      - name: Conditional print greater 0
+        if: fromJSON(needs.outputter.output.val-two) > 0 && fromJSON(needs.outputter.outputs.val-two) > 0
+        run: echo "Conditional print greater 0"
