@@ -19,5 +19,9 @@ jobs:
 
     steps:
       - env:
-          VAL: $${{ needs.outputter.outputs.val }}
+          VAL: ${{ needs.outputter.outputs.val }}
         run: echo "$VAL"
+
+      - name: Conditional print
+        if: ${{ fromJSON(${{ needs.outputter.outputs.val }}) > 10 }}
+        run: echo "Conditioanl print"
