@@ -20,4 +20,4 @@ jobs:
     steps:
       - env:
           VAL: $${{ needs.outputter.outputs.val }}
-        run: echo "val: $VAL"
+        run: echo "$VAL"
