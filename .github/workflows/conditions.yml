@@ -7,14 +7,12 @@ jobs:
   outputter:
     runs-on: ubuntu-latest
     outputs:
-      val-one: ${{ steps.step.outputs.val-one }}
-      val-two: ${{ steps.step.outputs.val-two }}
+      val-map: ${{ steps.step.outputs.val-map }}
   
     steps:
       - id: step
         run: |
-          echo "val-one=2.0" >> "$GITHUB_OUTPUT"
-          echo "val-two=3.0" >> "$GITHUB_OUTPUT"
+          echo val=$(jq -n --arg val-one "3.0" --arg val-two "2.0" '$ARGS.named')
   
   print:
     runs-on: ubuntu-latest
@@ -22,15 +20,14 @@ jobs:
 
     steps:
       - env:
-          VALONE: ${{ needs.outputter.outputs.val-one }}
-          VALTWO: ${{ needs.outputter.outputs.val-two }}
+          VALONE: ${{ fromJSON(needs.outputter.outputs.val-map).val-one }}
+          VALTWO: ${{ fromJSON(needs.outputter.outputs.val-map).val-two }}
         run: echo "$VALONE, $VALTWO"
 
       - name: Print JSON
         env:
-          VALONEJSON: ${{ fromJSON(needs.outputter.outputs.val-one) }}
-          VALTWOJSON: ${{ fromJSON(needs.outputter.outputs.val-two) }}
-        run: echo "$VALONEJSON, $VALTWOJSON"
+          VALMAP: ${{ fromJSON(needs.outputter.outputs.val-map) }}
+        run: echo "${{ fromJSON($VALMAP.val-one) }}, ${{ fromJSON($VALMAP.val-two) }}"
 
       - name: Conditional print less 10
         if: fromJSON(needs.outputter.outputs.val-one) < 10 && fromJSON(needs.outputter.outputs.val-two) < 10
