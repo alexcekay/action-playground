@@ -26,10 +26,16 @@ jobs:
           VALTWO: ${{ needs.outputter.outputs.val-two }}
         run: echo "$VALONE, $VALTWO"
 
+      - name: Print JSON
+        env:
+          VALONEJSON: ${{ fromJSON(needs.outputter.outputs.val-one) }}
+          VALTWOJSON: ${{ fromJSON(needs.outputter.outputs.val-two) }}
+        run: echo "$VALONEJSON, $VALUTWOJSON"
+
       - name: Conditional print less 10
-        if: fromJSON(needs.outputter.outputs.val-one) < 10 && fromJSON(needs.outputter.outputs.val-two) < 10
+        if: fromJSON(needs.outputter.outputs.val-one) < 10.0 && fromJSON(needs.outputter.outputs.val-two) < 10.0
         run: echo "Conditional print less 10"
 
       - name: Conditional print greater 0
-        if: fromJSON(needs.outputter.outputs.val-one) > 0 && fromJSON(needs.outputter.outputs.val-two) > 0
+        if: fromJSON(needs.outputter.outputs.val-one) > 0.0 && fromJSON(needs.outputter.outputs.val-two) > 0.0
         run: echo "Conditional print greater 0"
