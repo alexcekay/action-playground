@@ -11,7 +11,7 @@ jobs:
   
     steps:
       - id: step
-        run: echo val=2.0" >> "$GITHUB_OUTPUT"
+        run: echo "val=2.0" >> "$GITHUB_OUTPUT"
   
   print:
     runs-on: ubuntu-latest
