@@ -14,7 +14,7 @@ jobs:
       - id: step
         run: |
           echo "val-one=2.0" >> "$GITHUB_OUTPUT"
-          echo "val-two=3.0" >> $GITHUB_OUTPUT
+          echo "val-two=3.0" >> "$GITHUB_OUTPUT"
   
   print:
     runs-on: ubuntu-latest
@@ -31,5 +31,5 @@ jobs:
         run: echo "Conditional print less 10"
 
       - name: Conditional print greater 0
-        if: fromJSON(needs.outputter.output.val-two) > 0 && fromJSON(needs.outputter.outputs.val-two) > 0
+        if: fromJSON(needs.outputter.outputs.val-one) > 0 && fromJSON(needs.outputter.outputs.val-two) > 0
         run: echo "Conditional print greater 0"
