@@ -23,5 +23,5 @@ jobs:
         run: echo "$VAL"
 
       - name: Conditional print
-        if: ${{ fromJSON(${{ needs.outputter.outputs.val }}) > 10 }}
+        if: fromJSON(needs.outputter.outputs.val) > 10
         run: echo "Conditioanl print"
