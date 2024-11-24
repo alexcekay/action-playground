@@ -1,0 +1,23 @@
+name: conditions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  outputter:
+    runs-on: ubuntu-latest
+    outputs:
+      val: ${{ steps.step.outputs.val }}
+  
+    steps:
+      - id: step
+        run: echo val=2.0" >> "$GITHUB_OUTPUT"
+  
+  print:
+    runs-on: ubuntu-latest
+    needs: outputter
+
+    steps:
+      - env:
+          VAL: $${{ needs.outputter.outputs.val }}
+        run: echo "val: $VAL"
