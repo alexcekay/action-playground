@@ -1,0 +1,27 @@
+name: Overwrite
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  overwrite:
+    name: Overwrite
+    runs-on: ubuntu-latest
+    container:
+      image: px4io/px4-dev-nuttx-focal
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: recursive
+
+      - name: Git ownership workaround
+        run: git config --system --add safe.directory '*'
+
+      - name: Output
+        run: echo "Hello 1"
