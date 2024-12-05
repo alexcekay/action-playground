@@ -19,6 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Git ownership workaround
         run: git config --system --add safe.directory '*'
