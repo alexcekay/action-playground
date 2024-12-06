@@ -6,9 +6,11 @@ on:
       - '*'
 
 jobs:
-  overwrite:
-    name: Dynrunner
+  select:
+    name: Select dynamic runner
     runs-on: ubuntu-latest
+    env:
+      LABELS: ${{ toJson(github.event.pull_request.labels.*.name) }}
     steps:
       - name: Output
-        run: echo ${{ toJson(github.event.pull_request.labels.*.name) }}
+        run: echo ${{ fromJSON(env.LABELS)[0] }}
