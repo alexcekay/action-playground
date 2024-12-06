@@ -1,0 +1,14 @@
+name: Dynrunner
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  overwrite:
+    name: Dynrunner
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output
+        run: echo ${{ toJson(github.event.pull_request.labels.*.name) }}
