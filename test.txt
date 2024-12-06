@@ -1,3 +1,4 @@
 A test file
 with a second line
 and a third
+and a fourth
