@@ -11,4 +11,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Output
-        run: echo ${{ (github.event.pull_request.labels.*.name)[0] }}
+        run: echo ${{ fromJSON(github.event.pull_request.labels.*.name)[0] }}
