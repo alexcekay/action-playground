@@ -32,8 +32,8 @@ jobs:
           echo "$EOF" >> $GITHUB_OUTPUT
   
   sknd_hwt:
-    name: Running ${{ matrix.target }}
-    runs-on: ${{ matrix.runner}}
+    name: Running ${{ matrix.target }}, on runner ${{ matrix.runner }}
+    runs-on: ubuntu-latest
     needs: gen_matrix
     strategy:
       matrix: ${{ fromJson(needs.gen_matrix.outputs.matrix) }}
