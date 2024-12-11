@@ -19,12 +19,14 @@ jobs:
         run: |
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           MAT=$(cat << EOF
-          [
-            {
-              "runner": "test-sknds-v1.3",
-              "target": "skynode_s@v1.3"
-            }
-          ]
+          {
+            "include": [
+              {
+                "runner": "test-sknds-v1.3",
+                "target": "skynode_s@v1.3"
+              }
+            ]
+          }
           EOF
           )
           echo "matrix<<$EOF" >> $GITHUB_OUTPUT
