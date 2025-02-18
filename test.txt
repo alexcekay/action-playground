@@ -1,2 +1,3 @@
 A test file
 With a new line
+And a second
