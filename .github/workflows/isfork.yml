@@ -13,15 +13,15 @@ jobs:
     name: Rev
     runs-on: ubuntu-latest
     steps:
-      - name: Output Fork
+      - name: Output Non-Fork
         if: github.event.pull_request.head.repo.full_name == github.repository
         run: |
           echo "Non-Fork"
-          echo {{ github.event.pull_request.head.repo.full_name }} == {{ github.repository }}
+          echo ${{ github.event.pull_request.head.repo.full_name }} == ${{ github.repository }}
 
-      - name: Output Non-Fork
+      - name: Output Fork
         if: github.event.pull_request.head.repo.full_name != github.repository
         run: |
           echo "Fork"
-          echo {{ github.event.pull_request.head.repo.full_name }} != {{ github.repository }}
+          echo ${{ github.event.pull_request.head.repo.full_name }} != ${{ github.repository }}
   
