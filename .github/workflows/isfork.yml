@@ -1,0 +1,27 @@
+name: Fork
+
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  overwrite:
+    name: Rev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output Non-Fork
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          echo "Non-Fork"
+          echo ${{ github.event.pull_request.head.repo.full_name }} == ${{ github.repository }}
+
+      - name: Output Fork
+        if: github.event.pull_request.head.repo.full_name != github.repository
+        run: |
+          echo "Fork"
+          echo ${{ github.event.pull_request.head.repo.full_name }} != ${{ github.repository }}
+  
