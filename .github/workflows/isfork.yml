@@ -15,9 +15,13 @@ jobs:
     steps:
       - name: Output Fork
         if: github.event.pull_request.head.repo.full_name == github.repository
-        run: echo "Fork"
+        run: |
+          echo "Non-Fork"
+          echo {{ github.event.pull_request.head.repo.full_name }} == {{ github.repository }}
 
       - name: Output Non-Fork
         if: github.event.pull_request.head.repo.full_name != github.repository
-        run: echo "Non-Fork"
+        run: |
+          echo "Fork"
+          echo {{ github.event.pull_request.head.repo.full_name }} != {{ github.repository }}
   
